@@ -24,8 +24,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
-public class CallableStatementWrapper extends PreparedStatementWrapper
-        implements CallableStatement{
+public class CallableStatementWrapper extends PreparedStatementWrapper implements CallableStatement{
 
     /** Handle to the real callable statement. */
     private CallableStatement internalCallableStatement;
@@ -1073,5 +1072,5 @@ public class CallableStatementWrapper extends PreparedStatementWrapper
             throw this.connection.markPossiblyBroken(t);
         }
     }
-    {
+
 }

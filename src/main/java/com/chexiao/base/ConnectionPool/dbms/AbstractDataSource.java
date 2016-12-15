@@ -13,9 +13,9 @@ import javax.sql.DataSource;
 public abstract class AbstractDataSource  implements DataSource {
 
     /**
-     * 2011-05-24 »ñµÃÒ»¸öÖ»ÐèÒª¶ÁµÄÊý¾Ý¿âÁ¬½Ó,´¦ÀíÖ÷¿âÑ¹Á¦´óµÄÇé¿öÏÂ£¬½µµÍÖ÷¿âÑ¹Á¦
+     * 2011-05-24 èŽ·å¾—ä¸€ä¸ªåªéœ€è¦è¯»çš„æ•°æ®åº“è¿žæŽ¥,å¤„ç†ä¸»åº“åŽ‹åŠ›å¤§çš„æƒ…å†µä¸‹ï¼Œé™ä½Žä¸»åº“åŽ‹åŠ›
      * by
-     * @return Ò»¸öÖ»¹©¶ÁµÄÊý¾Ý¿âÁ¬½Ó£¬¿ÉÄÜÊÇÖ÷¿â£¬Ò²ÓÐ¿ÉÄÜÊÇ´Ó¿â
+     * @return ä¸€ä¸ªåªä¾›è¯»çš„æ•°æ®åº“è¿žæŽ¥ï¼Œå¯èƒ½æ˜¯ä¸»åº“ï¼Œä¹Ÿæœ‰å¯èƒ½æ˜¯ä»Žåº“
      * @throws SQLException
      */
     public Connection GetReadConnection() throws SQLException{

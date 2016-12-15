@@ -33,9 +33,11 @@ public class ClusterDataSource extends AbstractDataSource {
     /**
      * 当前正在使用的数据库连接。
      */
-    private volatile DbDataSource curDbDataSource ;
+    private volatile DbDataSource curDbDataSource;
 
-    /** Logger class. */
+    /**
+     * Logger class.
+     */
     protected static Logger logger = LoggerFactory.getLogger(ClusterDataSource.class);
 
     private volatile long readSwitchedTime = 0;
@@ -53,43 +55,43 @@ public class ClusterDataSource extends AbstractDataSource {
     private Thread checkAndChangeThread = new Thread(new Runnable() {
         @Override
         public void run() {
-            for (;;) {
+            for (; ; ) {
                 try {
                     Thread.sleep(1000);
 
                     // 如果配置了从库 ，启用HA
-                    if (slaveDbDataSource !=null ) {
+                    if (slaveDbDataSource != null) {
 
-                        for (Iterator iterator = clusterList.iterator(); iterator.hasNext();) {
+                        for (Iterator iterator = clusterList.iterator(); iterator.hasNext(); ) {
                             ClusterDataSource clusterDb = (ClusterDataSource) iterator.next();
 
                             // 检测 主库是否正常
-                            if (((clusterDb.currentReadDataSource==null)
-                                    && (!checkHostLive(getIpFromUrl(clusterDb.curDbDataSource.getName())) || !clusterDb.curDbDataSource.checkDbLiveForTimes() ))) {
+                            if (((clusterDb.currentReadDataSource == null)
+                                    && (!checkHostLive(getIpFromUrl(clusterDb.curDbDataSource.getName())) || !clusterDb.curDbDataSource.checkDbLiveForTimes()))) {
                                 clusterDb.currentReadDataSource = clusterDb.slaveDbDataSource;
                                 clusterDb.curDbDataSource = clusterDb.currentReadDataSource;
                                 curDbSwitchedTime = System.currentTimeMillis();
-                                logger.error("HaPlus:读切库  checkAndChangeThread switched to slave curDbDataSource dbs , current is :"+ clusterDb.curDbDataSource.toString());
+                                logger.error("HaPlus:读切库  checkAndChangeThread switched to slave curDbDataSource dbs , current is :" + clusterDb.curDbDataSource.toString());
                                 MessageAlert.Factory.get().sendMessage("HaPlus: 读切库" + clusterDb.slaveDbDataSource.getConfig().getConnetionURL());
                             }
 
                             //检测是否发生切库
-                            if((clusterDb.currentReadDataSource!=null)
-                                    && (System.currentTimeMillis()-curDbSwitchedTime > READ_SLAVE_DB_TIME)
-                                    &&(checkHostLive(getIpFromUrl(clusterDb.masterDbDataSource.getName())))
-                                    &&(clusterDb.masterDbDataSource.checkDbLiveForTimes())){
+                            if ((clusterDb.currentReadDataSource != null)
+                                    && (System.currentTimeMillis() - curDbSwitchedTime > READ_SLAVE_DB_TIME)
+                                    && (checkHostLive(getIpFromUrl(clusterDb.masterDbDataSource.getName())))
+                                    && (clusterDb.masterDbDataSource.checkDbLiveForTimes())) {
                                 clusterDb.currentReadDataSource = null;
                                 clusterDb.curDbDataSource = clusterDb.masterDbDataSource;
-                                logger.error("HaPlus: 读恢复 , checkAndChangeThread switched to master  curDbDataSource dbs , current is :"+ clusterDb.curDbDataSource.toString());
+                                logger.error("HaPlus: 读恢复 , checkAndChangeThread switched to master  curDbDataSource dbs , current is :" + clusterDb.curDbDataSource.toString());
                                 MessageAlert.Factory.get().sendMessage("HaPlus: 读恢复" + clusterDb.masterDbDataSource.getConfig().getConnetionURL());
                             }
 
-                            logger.debug("HaPlus: checkAndChangeThread iterator dbs , current is :"+ clusterDb.curDbDataSource.toString());
+                            logger.debug("HaPlus: checkAndChangeThread iterator dbs , current is :" + clusterDb.curDbDataSource.toString());
                         }
 
                     }
 
-                    logger.debug("HaPlus: checkAndChangeThread check status is normal  , cluster size is : "+clusterList.size());
+                    logger.debug("HaPlus: checkAndChangeThread check status is normal  , cluster size is : " + clusterList.size());
 
                 } catch (Exception e) {
                     logger.error("checkAndChange Errors " + e.getMessage(), e);
@@ -102,18 +104,20 @@ public class ClusterDataSource extends AbstractDataSource {
 
     /**
      * 从jdbc连串接串中分离出主机
+     *
      * @param jdbcUrl
      * @return
      */
-    public  static String getIpFromUrl(String jdbcUrl) {
+    public static String getIpFromUrl(String jdbcUrl) {
         String ip = "";
-        String tmpSocket = jdbcUrl.substring(jdbcUrl.indexOf("//")+2);
-        ip = tmpSocket.substring(0,tmpSocket.indexOf(":"));
+        String tmpSocket = jdbcUrl.substring(jdbcUrl.indexOf("//") + 2);
+        ip = tmpSocket.substring(0, tmpSocket.indexOf(":"));
         return ip;
     }
 
     /**
      * 判断主机是否活着（已废弃）
+     *
      * @param hostIp
      * @return
      */
@@ -200,7 +204,6 @@ public class ClusterDataSource extends AbstractDataSource {
     }
 
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(this.getName());
@@ -215,7 +218,6 @@ public class ClusterDataSource extends AbstractDataSource {
     /**
      * 新增数据库连接池
      *
-     * @param dataSourceName
      * @param dbDataSource
      */
 
@@ -224,7 +226,7 @@ public class ClusterDataSource extends AbstractDataSource {
         dbDataSources.add(dbDataSource);
     }
 
-    protected DbDataSource getReadDataSource() throws SQLException{
+    protected DbDataSource getReadDataSource() throws SQLException {
 
         long currentTime = System.currentTimeMillis();
         // 读连接不为空
@@ -241,21 +243,21 @@ public class ClusterDataSource extends AbstractDataSource {
 
         }
 
-        for(int index = 0; index < dbDataSources.size(); index ++) {
+        for (int index = 0; index < dbDataSources.size(); index++) {
             DbDataSource dataSource = dbDataSources.get(index);
 
-            if(dataSource == null) continue;
+            if (dataSource == null) continue;
 
             currentTime = System.currentTimeMillis();
             // double check
             if (readSwitchedTime >= currentTime)
                 return currentReadDataSource;
 
-            if (dataSource.isAlive() && (!dataSource.isFull())){
+            if (dataSource.isAlive() && (!dataSource.isFull())) {
 
-                if(dataSource == this.masterDbDataSource){
+                if (dataSource == this.masterDbDataSource) {
                     currentReadDataSource = null;
-                } else{
+                } else {
 
                     logger.error("SWAP readable datasource TO " + dataSource);
                     currentReadDataSource = dataSource;
@@ -267,7 +269,7 @@ public class ClusterDataSource extends AbstractDataSource {
             }
         }
 
-        throw new SQLException("SWAP no available datasource. " + this ,"08S01");
+        throw new SQLException("SWAP no available datasource. " + this, "08S01");
     }
 
 
@@ -278,15 +280,15 @@ public class ClusterDataSource extends AbstractDataSource {
      * @return
      * @throws Exception
      */
-    protected DbDataSource getDataSource(){
+    protected DbDataSource getDataSource() {
 
-        for(int index = 0; index < dbDataSources.size(); index ++) {
+        for (int index = 0; index < dbDataSources.size(); index++) {
             DbDataSource dataSource = dbDataSources.get(index);
-            if (dataSource != null && dataSource.isAlive()){
+            if (dataSource != null && dataSource.isAlive()) {
 
-                if(dataSource != curDbDataSource){
-                    synchronized(this){
-                        if(dataSource != curDbDataSource){
+                if (dataSource != curDbDataSource) {
+                    synchronized (this) {
+                        if (dataSource != curDbDataSource) {
                             logger.error("SWAP datasource FROM " + curDbDataSource + " TO " + dataSource);
                             curDbDataSource = dataSource;
                             MessageAlert.Factory.get().sendMessage("切库" + dataSource.getConfig().getConnetionURL());
@@ -309,4 +311,5 @@ public class ClusterDataSource extends AbstractDataSource {
     public String getName() {
         return name;
     }
+}
 
