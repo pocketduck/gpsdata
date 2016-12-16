@@ -1,6 +1,6 @@
 package com.chexiao.base.dao.monitor;
 
-import com.chexiao.base.ConnectionPool.dbms.PreparedStatementWrapper;
+import com.chexiao.base.dbconnectionpool.dbms.PreparedStatementWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,11 +23,17 @@ public class DAOExcuteProxy implements InvocationHandler{
 
     private static Map MAP = new ConcurrentHashMap();
     static{
-        //Í³¼ÆÒ»¶ÎÊ±¼äÄÚµÄÇëÇóµÄsqlºÍÖ´ĞĞ´ÎÊı Æ½¾ùÖ´ĞĞÊ±¼äºÍÆ½¾ù·µ»Ø¼ÇÂ¼Êı
+
+
+
+        //ç»Ÿè®¡ä¸€æ®µæ—¶é—´å†…çš„è¯·æ±‚çš„sqlå’Œæ‰§è¡Œæ¬¡æ•° å¹³å‡æ‰§è¡Œæ—¶é—´å’Œå¹³å‡è¿”å›è®°å½•æ•°
         Runnable r = new Runnable() {
+
+
             public void run() {
                 try {
                     while (true) {
+//                        LogCollectorMessage l = new LogCollectorMessage();
                         Map oldMap = MAP;
                         MAP = new ConcurrentHashMap();
                         List list = new ArrayList(oldMap.values());
@@ -37,37 +43,40 @@ public class DAOExcuteProxy implements InvocationHandler{
                             SqlInfo sql = (SqlInfo) it.next();
                             long avgts = (sql.getTotalts().get() / (sql.getTotalcount().get()==0?1: sql.getTotalcount().get()));
                             long avgrows = (sql.getTotalrows().get() / (sql.getTotalcount().get()==0?1:sql.getTotalcount().get()));
-                      logger.info("SQL :" + sql.getSql() + ",Ò»¹²Ö´ĞĞ" + sql.getTotalcount()
-                                 + "´Î,Æ½¾ùÊ±¼ä" + avgts + "ºÁÃë," + "Æ½¾ù·µ»Ø¼ÇÂ¼Êı" + avgrows);
+//                            l.append("tableName", sql.getTableName()).append("sql", sql.getSql()).append("totalCount", sql.getTotalcount() + "").append("avgts", avgts + "").append("avgrows", avgrows + "");
+                        logger.info("SQL :" + sql.getSql() + ",ä¸€å…±æ‰§è¡Œ" + sql.getTotalcount()
+                                    + "æ¬¡,å¹³å‡æ—¶é—´" + avgts + "æ¯«ç§’," + "å¹³å‡è¿”å›è®°å½•æ•°" + avgrows);
+//                            DJFrameworkLogCollector.writeDjFrameworkLog(l, DjFrameworkAppType.DJDAO);
                         }
                         Thread.sleep(MonitorParameter.getInstance().getMonitorInterval() * 1000);
                     }
                 }catch(Exception ex){
                     ex.printStackTrace();
                 }
+
             }
 
         };
         new Thread(r).start();
     }
     /**
-     * °ó¶¨Î¯ÍĞ¶ÔÏó²¢·µ»ØÒ»¸ö´úÀíÀà
+     * ç»‘å®šå§”æ‰˜å¯¹è±¡å¹¶è¿”å›ä¸€ä¸ªä»£ç†ç±»
      * @param target
      * @return
      */
     public Object bind(Object target) {
         this.target = target;
-        //È¡µÃ´úÀí¶ÔÏó
+        //å–å¾—ä»£ç†å¯¹è±¡
         return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
     }
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Object result=null;
-        // System.out.println("ÊÂÎï¿ªÊ¼"+target.getClass().getCanonicalName()+" mechtod: "+method.getName());
+        // System.out.println("äº‹ç‰©å¼€å§‹"+target.getClass().getCanonicalName()+" mechtod: "+method.getName());
 
 
         long startTime = System.currentTimeMillis();
-        //Ö´ĞĞ·½·¨
+        //æ‰§è¡Œæ–¹æ³•
         result=method.invoke(target, args);
         long endTime = System.currentTimeMillis();
         String sql=args[0].toString();
@@ -79,9 +88,9 @@ public class DAOExcuteProxy implements InvocationHandler{
         // logCollector(endTime-startTime,args[0].toString(),args[1].toString(),args[3]);
 //        for(int i=0;i<pmd.getParameterCount();i++) {
 //
-//                System.out.println(pmd.getParameterClassName(1));//²ÎÊıCLASSÃû×Ö
-//                System.out.println(pmd.getParameterType(i));//²ÎÊıÀàĞÍ
-//                System.out.println(pmd.getParameterTypeName(i));//²ÎÊıÀàĞÍÃû×Ö
+//                System.out.println(pmd.getParameterClassName(1));//å‚æ•°CLASSåå­—
+//                System.out.println(pmd.getParameterType(i));//å‚æ•°ç±»å‹
+//                System.out.println(pmd.getParameterTypeName(i));//å‚æ•°ç±»å‹åå­—
 //
 //
 //        }
@@ -105,7 +114,7 @@ public class DAOExcuteProxy implements InvocationHandler{
         }
 
 
-        //System.out.println("ÊÂÎï½áÊø");
+        //System.out.println("äº‹ç‰©ç»“æŸ");
         return result;
     }
     /**
@@ -113,25 +122,31 @@ public class DAOExcuteProxy implements InvocationHandler{
      * @param
      */
     public static void logCollector(long time ,String sql ,String clusterName,Object... params) {
+
         StringBuffer paramStr = new StringBuffer();
         if (time >= 0) {
+            if (params != null) {
+
                 for(Object obj:params){
-                    Class clazz =obj.getClass();//µÃµ½ÀàĞÍ¶ÔÓ¦µÄClass¶ÔÏó
-                    if(clazz.isArray()){//ÅĞ¶ÏÊÇ·ñÊÇÊı×éÀàĞÍ
+                    Class clazz =obj.getClass();//å¾—åˆ°ç±»å‹å¯¹åº”çš„Classå¯¹è±¡
+                    if(clazz.isArray()){//åˆ¤æ–­æ˜¯å¦æ˜¯æ•°ç»„ç±»å‹
                         int len= Array.getLength(obj);
                         for(int i=0;i<len;i++){
                             Object o=Array.get(obj,i);
                             paramStr.append(Array.get(obj,i)).append(";");
                         }
                     }
-                    else{//²»ÊÇÊı×éÀàĞÍ
+                    else{//ä¸æ˜¯æ•°ç»„ç±»å‹
                         paramStr.append(obj).append(";");
                     }
                 }
+
 //                l.append("clusterName", clusterName).append("runTime", time + "").append("sqlStr", sql).append("params", paramStr.toString());
-                logger.info(l.toString());
+//                logger.info(l.toString());
+//                DJFrameworkLogCollector.writeDjFrameworkLog(l, DjFrameworkAppType.DJDAO);
             } else {
 //                l.append("clusterName", clusterName).append("runTime", time + "").append("sqlStr", sql).append("params", "null");
+//                DJFrameworkLogCollector.writeDjFrameworkLog(l, DjFrameworkAppType.DJDAO);
 //                logger.info(l.toString());
             }
         }

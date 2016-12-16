@@ -52,7 +52,7 @@ public class Common {
     }
 
     /*
-     * »ñµÃ×Ö¶Î¶ÔÓ¦µÄset·½·¨
+     * è·å¾—å­—æ®µå¯¹åº”çš„setæ–¹æ³•
      */
     public static Method getSetterMethod(Class<?> clazz, Field field) throws Exception {
         ClassInfo ci = getClassInfo(clazz);
@@ -61,7 +61,7 @@ public class Common {
     }
 
     /*
-     * »ñµÃ×Ö¶Î¶ÔÓ¦µÄget·½·¨
+     * è·å¾—å­—æ®µå¯¹åº”çš„getæ–¹æ³•
      */
     public static Method getGetterMethod(Class<?> clazz, Field field) {
         ClassInfo ci = getClassInfo(clazz);
@@ -70,7 +70,7 @@ public class Common {
     }
 
     /*
-     * »ñµÃÖ÷¼ü×Ö¶Î
+     * è·å¾—ä¸»é”®å­—æ®µ
      */
     public static List<Field> getIdFields(Class<?> clazz) {
         ClassInfo ci = getClassInfo(clazz);
@@ -83,7 +83,7 @@ public class Common {
     }
 
     /*
-     * »ñµÃËùÓĞ×Ö¶Î
+     * è·å¾—æ‰€æœ‰å­—æ®µ
      */
     public static List<Field> getAllFields(Class<?> clazz) {
         ClassInfo ci = getClassInfo(clazz);
@@ -96,7 +96,7 @@ public class Common {
     }
 
     /*
-     * »ñµÃËùÓĞÔÊĞí²åÈëµÄ×Ö¶Î
+     * è·å¾—æ‰€æœ‰å…è®¸æ’å…¥çš„å­—æ®µ
      */
     public static List<Field> getInsertableFields(Class<?> clazz) {
         ClassInfo ci = getClassInfo(clazz);
@@ -109,7 +109,7 @@ public class Common {
     }
 
     /*
-     * »ñµÃËùÓĞÔÊĞí¸üĞÂµÄ×Ö¶Î
+     * è·å¾—æ‰€æœ‰å…è®¸æ›´æ–°çš„å­—æ®µ
      */
     public static List<Field> getUpdatableFields(Class<?> clazz) {
         ClassInfo ci = getClassInfo(clazz);
@@ -126,7 +126,7 @@ public class Common {
     }
 
     /*
-     * »ñµÃ×Ö¶ÎÃû
+     * è·å¾—å­—æ®µå
      */
     public static String getDBCloumnName(Class<?> clazz, Field f){
         ClassInfo ci = getClassInfo(clazz);
@@ -134,7 +134,7 @@ public class Common {
     }
 
     /*
-     * »ñµÃ×ÔÔö×Ö¶Î
+     * è·å¾—è‡ªå¢å­—æ®µ
      */
     public static List<Field> getIdentityFields(Class<?> clazz) {
         ClassInfo ci = getClassInfo(clazz);
@@ -147,7 +147,7 @@ public class Common {
     }
 
     /**
-     * »ñµÃProcedureName
+     * è·å¾—ProcedureName
      * @param clazz
      * @return
      */
@@ -157,7 +157,7 @@ public class Common {
 
 
     /**
-     * ÊÇ·ñÊ¹ÓÃÊı¾İ¿âÄ¬ÈÏÖµ
+     * æ˜¯å¦ä½¿ç”¨æ•°æ®åº“é»˜è®¤å€¼
      * @param f
      * @return
      */
@@ -171,7 +171,7 @@ public class Common {
 
 
     /**
-     * »ñµÃTableRename×¢½âget·½·¨ÄÚÈİ
+     * è·å¾—TableRenameæ³¨è§£getæ–¹æ³•å†…å®¹
      * @author haoxb 2013-05-15
      */
     public static String getTableRename(Class<?> clazz, Object bean) {
@@ -190,7 +190,7 @@ public class Common {
     }
 
     /**
-     * »ñµÃ×Ö¶Î¶ÔÓ¦µÄget·½·¨
+     * è·å¾—å­—æ®µå¯¹åº”çš„getæ–¹æ³•
      * @author haoxb 2013-05-15
      */
     public static Method getTableRenameGetterMethod(Class<?> clazz, Field field) {

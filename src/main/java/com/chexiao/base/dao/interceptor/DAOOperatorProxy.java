@@ -10,43 +10,43 @@ import java.lang.reflect.Proxy;
 /**
  * Created by fulei on 2016-12-15.
  */
-public class DAOOperatorProxy {
+public class DAOOperatorProxy implements InvocationHandler{
     private static final Log logger = LogFactory.getLog(DAOOperatorProxy.class);
     private Object target;
 
     /**
-     * °ó¶¨Î¯ÍĞ¶ÔÏó²¢·µ»ØÒ»¸ö´úÀíÀà
+     * ç»‘å®šå§”æ‰˜å¯¹è±¡å¹¶è¿”å›ä¸€ä¸ªä»£ç†ç±»
      * @param target
      * @return
      */
     public Object bind(Object target) {
         this.target = target;
-        //È¡µÃ´úÀí¶ÔÏó
+        //å–å¾—ä»£ç†å¯¹è±¡
         return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Object result=null;
-        // System.out.println("ÊÂÎï¿ªÊ¼"+target.getClass().getCanonicalName()+" mechtod: "+method.getName());
+        // System.out.println("äº‹ç‰©å¼€å§‹"+target.getClass().getCanonicalName()+" mechtod: "+method.getName());
 
 //        for(Object obj:args){
-//            Class clazz =obj.getClass();//µÃµ½ÀàĞÍ¶ÔÓ¦µÄClass¶ÔÏó
-//            if(clazz.isArray()){//ÅĞ¶ÏÊÇ·ñÊÇÊı×éÀàĞÍ
+//            Class clazz =obj.getClass();//å¾—åˆ°ç±»å‹å¯¹åº”çš„Classå¯¹è±¡
+//            if(clazz.isArray()){//åˆ¤æ–­æ˜¯å¦æ˜¯æ•°ç»„ç±»å‹
 //                int len=Array.getLength(obj);
 //                for(int i=0;i<len;i++){
 //                    System.out.println(Array.get(obj,i));
 //                }
 //            }
-//            else{//²»ÊÇÊı×éÀàĞÍ
+//            else{//ä¸æ˜¯æ•°ç»„ç±»å‹
 //                System.out.println( obj);
 //            }
 //
 //        }
-        //Ö´ĞĞ·½·¨
+        //æ‰§è¡Œæ–¹æ³•
         result=method.invoke(target, args);
 
-        //   System.out.println("ÊÂÎï½áÊø");
+        //   System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         return result;
     }
 }

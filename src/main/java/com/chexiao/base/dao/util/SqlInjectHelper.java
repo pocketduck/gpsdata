@@ -19,33 +19,33 @@ public class SqlInjectHelper {
     private static Pattern simplePatternSql = null;
 
     static {
-        keyList.add(new SqlKey("sp_", "£ó£ğ_", "sp_", true));
-        keyList.add(new SqlKey("xp_", "£ø£ğ£ß", "xp_", true));
-        keyList.add(new SqlKey("0x", "£°£ø", "0x", true));
-        keyList.add(new SqlKey("--", "£­£­", "--", true));
-        keyList.add(new SqlKey(";", "£»", ";", true));
+        keyList.add(new SqlKey("sp_", "ï½“ï½_", "sp_", true));
+        keyList.add(new SqlKey("xp_", "ï½˜ï½ï¼¿", "xp_", true));
+        keyList.add(new SqlKey("0x", "ï¼ï½˜", "0x", true));
+        keyList.add(new SqlKey("--", "ï¼ï¼", "--", true));
+        keyList.add(new SqlKey(";", "ï¼›", ";", true));
 
-        keyList.add(new SqlKey("exec", "£å£ø£å£ã", "[^0-9a-zA-Z_]exec[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("call", "£ã£á£ì£ì", "[^0-9a-zA-Z_]call[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("declare", "£ä£å£ã£ì£á£ò£å", "[^0-9a-zA-Z_]declare[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("netuser", "£î£å£ô £õ£ó£å£ò", "[^0-9a-zA-Z_]net\\s+user[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("ascii", "£á£ó£ã£é£é", "[^0-9a-zA-Z_]ascii[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("char", "£ã£è£á£ò", "[^0-9a-zA-Z_]char[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("cast", "£ã£á£ó£ô", "[^0-9a-zA-Z_]cast[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("unicode", "£õ£î£é£ã£ï£ä£å", "[^0-9a-zA-Z_]unicode[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("insert", "£é£î£ó£å£ò£ô", "[^0-9a-zA-Z_]insert[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("delete", "£ä£å£ì£å£ô£å", "[^0-9a-zA-Z_]delete[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("update", "£õ£ğ£ä£á£ô£å", "[^0-9a-zA-Z_]update[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("drop", "£ä£ò£ï£ğ", "[^0-9a-zA-Z_]drop[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("create", "£ã£ò£å£á£ô£å", "[^0-9a-zA-Z_]create[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("database", "£ä£á£ô£á£â£á£ó£å", "[^0-9a-zA-Z_]database[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("master", "£í£á£ó£ô£å£ò", "[^0-9a-zA-Z_]master[^0-9a-zA-Z_]", true));
-        keyList.add(new SqlKey("truncate", "£ô£ò£õ£î£ã£á£ô£å", "[^0-9a-zA-Z_]truncate[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("exec", "ï½…ï½˜ï½…ï½ƒ", "[^0-9a-zA-Z_]exec[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("call", "ï½ƒï½ï½Œï½Œ", "[^0-9a-zA-Z_]call[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("declare", "ï½„ï½…ï½ƒï½Œï½ï½’ï½…", "[^0-9a-zA-Z_]declare[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("netuser", "ï½ï½…ï½” ï½•ï½“ï½…ï½’", "[^0-9a-zA-Z_]net\\s+user[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("ascii", "ï½ï½“ï½ƒï½‰ï½‰", "[^0-9a-zA-Z_]ascii[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("char", "ï½ƒï½ˆï½ï½’", "[^0-9a-zA-Z_]char[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("cast", "ï½ƒï½ï½“ï½”", "[^0-9a-zA-Z_]cast[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("unicode", "ï½•ï½ï½‰ï½ƒï½ï½„ï½…", "[^0-9a-zA-Z_]unicode[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("insert", "ï½‰ï½ï½“ï½…ï½’ï½”", "[^0-9a-zA-Z_]insert[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("delete", "ï½„ï½…ï½Œï½…ï½”ï½…", "[^0-9a-zA-Z_]delete[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("update", "ï½•ï½ï½„ï½ï½”ï½…", "[^0-9a-zA-Z_]update[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("drop", "ï½„ï½’ï½ï½", "[^0-9a-zA-Z_]drop[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("create", "ï½ƒï½’ï½…ï½ï½”ï½…", "[^0-9a-zA-Z_]create[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("database", "ï½„ï½ï½”ï½ï½‚ï½ï½“ï½…", "[^0-9a-zA-Z_]database[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("master", "ï½ï½ï½“ï½”ï½…ï½’", "[^0-9a-zA-Z_]master[^0-9a-zA-Z_]", true));
+        keyList.add(new SqlKey("truncate", "ï½”ï½’ï½•ï½ï½ƒï½ï½”ï½…", "[^0-9a-zA-Z_]truncate[^0-9a-zA-Z_]", true));
 
-        keyList.add(new SqlKey("select", "£ó£å£ì£å£ã£ô", "[^0-9a-zA-Z_]select[^0-9a-zA-Z_]", false));
-        keyList.add(new SqlKey("from", "£æ£ò£ï£í", "[^0-9a-zA-Z_]from[^0-9a-zA-Z_]", false));
-        keyList.add(new SqlKey("where", "£÷£è£å£ò£å", "[^0-9a-zA-Z_]where[^0-9a-zA-Z_]", false));
-        keyList.add(new SqlKey("'", "£§", "'", false));
+        keyList.add(new SqlKey("select", "ï½“ï½…ï½Œï½…ï½ƒï½”", "[^0-9a-zA-Z_]select[^0-9a-zA-Z_]", false));
+        keyList.add(new SqlKey("from", "ï½†ï½’ï½ï½", "[^0-9a-zA-Z_]from[^0-9a-zA-Z_]", false));
+        keyList.add(new SqlKey("where", "ï½—ï½ˆï½…ï½’ï½…", "[^0-9a-zA-Z_]where[^0-9a-zA-Z_]", false));
+        keyList.add(new SqlKey("'", "ï¼‡", "'", false));
 
         StringBuffer sbFullKey = new StringBuffer();
         StringBuffer sbSimpleKey = new StringBuffer();
@@ -70,18 +70,18 @@ public class SqlInjectHelper {
     }
 
     /**
-     * ¹ıÂÇSQL¹Ø¼ü×Ö
+     * è¿‡è™‘SQLå…³é”®å­—
      * @param sql SQL
-     * @return ¹ıÂÇºóµÄSQL
+     * @return è¿‡è™‘åçš„SQL
      */
     public static String filterSql(String sql) {
         return filterSql(sql, fullPatternSql);
     }
 
     /**
-     * ¼òµ¥¹ıÂÇSQL¹Ø¼ü×Ö
+     * ç®€å•è¿‡è™‘SQLå…³é”®å­—
      * @param sql SQL
-     * @return ¹ıÂÇºóµÄSQL
+     * @return è¿‡è™‘åçš„SQL
      */
     public static String simpleFilterSql(String sql) {
         return filterSql(sql, simplePatternSql);

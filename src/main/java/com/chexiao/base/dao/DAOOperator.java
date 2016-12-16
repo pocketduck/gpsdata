@@ -30,12 +30,12 @@ public class DAOOperator implements IDAOOperator{
 
     private static IDAOExcute daoExcute;
     /**
-     * Ä¬ÈÏ²éÑ¯³¬Ê±Ê±¼ä
+     * é»˜è®¤æŸ¥è¯¢è¶…æ—¶æ—¶é—´
      */
     protected int qurryTimeOut = 2;
 
     /**
-     * Ä¬ÈÏÌí¼Ó/ĞŞ¸Ä³¬Ê±Ê±¼ä
+     * é»˜è®¤æ·»åŠ /ä¿®æ”¹è¶…æ—¶æ—¶é—´
      */
     protected int insertUpdateTimeOut = 5;
 
@@ -47,7 +47,7 @@ public class DAOOperator implements IDAOOperator{
         ConnectionHelper ch = new ConnectionHelper(configPath);
         PropertiesHelper ph = new PropertiesHelper(configPath);
 
-        String sqlCreaterClass = "com.daojia.spat.dao.statementcreater.MysqlPSCreater"; //ph.getString("SqlCreaterClass");
+        String sqlCreaterClass = "com.chexiao.base.dao.statementcreater.MysqlPSCreater"; //ph.getString("SqlCreaterClass");
         if(sqlCreaterClass != null && !sqlCreaterClass.equalsIgnoreCase("")) {
 
             logger.info("init SqlCreaterClass:" + sqlCreaterClass);
@@ -445,9 +445,10 @@ public class DAOOperator implements IDAOOperator{
     }
 
     /**
-     * ĞŞ¸ÄÖ¸¶¨idµÄÊµÌå¶ÔÏóµÄÊôĞÔ
-     * @param id		           ÊµÌå¶ÔÏóµÄid
-     * @return				ÊµÌå¶ÔÏóµÄId
+     * ä¿®æ”¹æŒ‡å®šidçš„å®ä½“å¯¹è±¡çš„å±æ€§
+     * @param id		           å®ä½“å¯¹è±¡çš„id
+     * @param valusMap		éœ€è¦ä¿®æ”¹çš„å®ä½“å¯¹è±¡çš„å±æ€§åç§°çš„æ˜ å°„
+     * @return				å®ä½“å¯¹è±¡çš„Id
      */
 
     public <I> Object updateByID(Class<?> clazz,I id, Map<String, Object> valuesMap,int timeout) throws Exception {
@@ -614,7 +615,7 @@ public class DAOOperator implements IDAOOperator{
         List<?> dataList = null;
         OutSQL sql = new OutSQL();
         try {
-            // 2011-05-24 Ê¹ÓÃÖ»¶ÁÁ¬½Ó
+            // 2011-05-24 ä½¿ç”¨åªè¯»è¿æ¥
 //			conn = connHelper.get();
             conn = connHelper.getReadConnection();
 
@@ -655,7 +656,7 @@ public class DAOOperator implements IDAOOperator{
         List<?> dataList = null;
         OutSQL sql = new OutSQL();
         try {
-            // 2011-05-24 Ê¹ÓÃÖ»¶ÁÁ¬½Ó
+            // 2011-05-24 ä½¿ç”¨åªè¯»è¿æ¥
 //			conn = connHelper.get();
             conn = connHelper.getReadConnection();
 
@@ -696,7 +697,7 @@ public class DAOOperator implements IDAOOperator{
         List<?> dataList = null;
         OutSQL sql = new OutSQL();
         try {
-            // 2011-05-24 Ê¹ÓÃÖ»¶ÁÁ¬½Ó
+            // 2011-05-24 ä½¿ç”¨åªè¯»è¿æ¥
 //			conn = connHelper.get();
             conn = connHelper.getReadConnection();
 
@@ -736,7 +737,7 @@ public class DAOOperator implements IDAOOperator{
         PreparedStatement ps = null;
         OutSQL sql = new OutSQL();
         try {
-            // 2011-05-24 Ê¹ÓÃÖ»¶ÁÁ¬½Ó
+            // 2011-05-24 ä½¿ç”¨åªè¯»è¿æ¥
 //			conn = connHelper.get();
             conn = connHelper.getReadConnection();
 
@@ -863,7 +864,7 @@ public class DAOOperator implements IDAOOperator{
                     }
 
 					/*
-					 * ¼Ç×¡Õâ´Î½ÌÑµ°¡~~~~~~~~~~~
+					 * è®°ä½è¿™æ¬¡æ•™è®­å•Š~~~~~~~~~~~
 					else if (filedCls == java.util.Date.class) {
 			            columnValueObj = resultSet.getDate(columnName);
 			            if (columnValueObj != null) {
@@ -888,7 +889,7 @@ public class DAOOperator implements IDAOOperator{
     }
 
     /**
-     * ´ÓhelperÇ¨ÒÆ¹ıÀ´µÄ·½·¨£¬Í³Ò»Ö´ĞĞÈë¿Ú¡£
+     * ä»helperè¿ç§»è¿‡æ¥çš„æ–¹æ³•ï¼Œç»Ÿä¸€æ‰§è¡Œå…¥å£ã€‚
      */
 
     public Object execInsert(String sql, IPreparedStatementHandler handler) throws Exception {
@@ -921,7 +922,7 @@ public class DAOOperator implements IDAOOperator{
         ResultSet rs = null;
         Statement stmt = null;
         try {
-            // Ê¹ÓÃÖ»¶ÁÁ¬½Ó
+            // ä½¿ç”¨åªè¯»è¿æ¥
 //			conn = connHelper.get();
             conn = connHelper.getReadConnection();
 
@@ -961,31 +962,31 @@ public class DAOOperator implements IDAOOperator{
     }
 
     /**
-     * Ö´ĞĞÊÂÎñÈÎÎñ
+     * æ‰§è¡Œäº‹åŠ¡ä»»åŠ¡
      * @param tran
      * @throws Exception
      */
     public void execTransaction(ITransaction tran) throws Exception {
-        // ÊÂÎñ¿ªÊ¼
+        // äº‹åŠ¡å¼€å§‹
         beginTransaction();
 
         try {
             tran.exec();
-            //ÊÂÎñÌá½»
+            //äº‹åŠ¡æäº¤
             commitTransaction();
         } catch(Exception ex) {
-            //ÊÂÎñ»Ø¹ö
+            //äº‹åŠ¡å›æ»š
             rollbackTransaction();
 
             throw ex;
         } finally {
-            //ÊÂÎñ½áÊø
+            //äº‹åŠ¡ç»“æŸ
             endTransaction();
         }
     }
 
     /**
-     * ¿ªÆôÊÂÎñ(Ä¬ÈÏ¼¶±ğTRANSACTION_READ_COMMITTED)
+     * å¼€å¯äº‹åŠ¡(é»˜è®¤çº§åˆ«TRANSACTION_READ_COMMITTED)
      * @throws Exception
      */
     public void beginTransaction() throws Exception {
@@ -993,8 +994,8 @@ public class DAOOperator implements IDAOOperator{
     }
 
     /**
-     * ¿ªÆôÊÂÎñ
-     * @param level ÊÂÎñ¼¶±ğ
+     * å¼€å¯äº‹åŠ¡
+     * @param level äº‹åŠ¡çº§åˆ«
      * @throws Exception
      */
     public void beginTransaction(int level) throws Exception {
@@ -1013,7 +1014,7 @@ public class DAOOperator implements IDAOOperator{
     }
 
     /**
-     * Ìá½»ÊÂÎñ
+     * æäº¤äº‹åŠ¡
      * @throws Exception
      */
     public void commitTransaction() throws Exception {
@@ -1026,7 +1027,7 @@ public class DAOOperator implements IDAOOperator{
     }
 
     /**
-     * »Ø¹öÊÂÎñ
+     * å›æ»šäº‹åŠ¡
      * @throws Exception
      */
     public void rollbackTransaction() throws Exception {
@@ -1039,14 +1040,14 @@ public class DAOOperator implements IDAOOperator{
     }
 
     /**
-     * ½áÊøÊÂÎñ
+     * ç»“æŸäº‹åŠ¡
      * @throws Exception
      */
     public void endTransaction() throws Exception {
         Connection conn = connHelper.get();
         if(conn != null) {
             try{
-                //»Ö¸´Ä¬ÈÏ
+                //æ¢å¤é»˜è®¤
                 conn.setAutoCommit(true);
                 conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 

@@ -37,7 +37,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
                                               OutSQL sql) throws Exception {
         List<Field> fieldList = Common.getIdFields(clazz);
         if (fieldList.size() != 1) {
-            throw new Exception("ÎŞ·¨¸ù¾İÖ÷¼üÉ¾³ı£ºÖ÷¼ü²»´æÔÚ »ò ÓĞÁ½¸öÒÔÉÏµÄÖ÷¼ü");
+            throw new Exception("æ— æ³•æ ¹æ®ä¸»é”®åˆ é™¤ï¼šä¸»é”®ä¸å­˜åœ¨ æˆ– æœ‰ä¸¤ä¸ªä»¥ä¸Šçš„ä¸»é”®");
         } else {
             ProcedureName des = Common.getProc(clazz);
             if(des != null){
@@ -58,7 +58,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
 
                 return cstmt;
             }else{
-                throw new Exception("ÊµÌåÃ»ÓĞ¶¨Òå:@ProcedureName");
+                throw new Exception("å®ä½“æ²¡æœ‰å®šä¹‰:@ProcedureName");
             }
         }
     }
@@ -88,7 +88,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
 
             return cstmt;
         }else{
-            throw new Exception("ÊµÌåÃ»ÓĞ¶¨Òå:@ProcedureName");
+            throw new Exception("å®ä½“æ²¡æœ‰å®šä¹‰:@ProcedureName");
         }
     }
 
@@ -121,7 +121,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
 
             return cstmt;
         }else{
-            throw new Exception("ÊµÌåÃ»ÓĞ¶¨Òå:@ProcedureName");
+            throw new Exception("å®ä½“æ²¡æœ‰å®šä¹‰:@ProcedureName");
         }
     }
 
@@ -159,7 +159,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
 
             return cstmt;
         }else{
-            throw new Exception("ÊµÌåÃ»ÓĞ¶¨Òå:@ProcedureName");
+            throw new Exception("å®ä½“æ²¡æœ‰å®šä¹‰:@ProcedureName");
         }
     }
 
@@ -170,7 +170,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
                                                  OutSQL sql) throws Exception {
         List<Field> fieldList = Common.getIdFields(clazz);
         if (fieldList.size() != 1) {
-            throw new Exception("ÎŞ·¨¸ù¾İÖ÷¼üID»ñÈ¡Êı¾İ£ºÖ÷¼ü²»´æÔÚ »ò ÓĞÁ½¸öÒÔÉÏµÄÖ÷¼ü");
+            throw new Exception("æ— æ³•æ ¹æ®ä¸»é”®IDè·å–æ•°æ®ï¼šä¸»é”®ä¸å­˜åœ¨ æˆ– æœ‰ä¸¤ä¸ªä»¥ä¸Šçš„ä¸»é”®");
         } else {
             ProcedureName des = Common.getProc(clazz);
             if(des != null){
@@ -195,7 +195,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
 
                 return cstmt;
             }else{
-                throw new Exception("ÊµÌåÃ»ÓĞ¶¨Òå:@ProcedureName");
+                throw new Exception("å®ä½“æ²¡æœ‰å®šä¹‰:@ProcedureName");
             }
         }
     }
@@ -227,7 +227,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
 
             return cstmt;
         }else{
-            throw new Exception("ÊµÌåÃ»ÓĞ¶¨Òå:@ProcedureName");
+            throw new Exception("å®ä½“æ²¡æœ‰å®šä¹‰:@ProcedureName");
         }
     }
 
@@ -262,11 +262,11 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
                 }
                 return cstmt;
             }else{
-                throw new Exception("ÊµÌåÃ»ÓĞ¶¨Òå:@ProcedureName");
+                throw new Exception("å®ä½“æ²¡æœ‰å®šä¹‰:@ProcedureName");
             }
         }
         else{
-            throw new Exception("±íÊµÌåÃ»ÓĞ×Ö¶Î");
+            throw new Exception("è¡¨å®ä½“æ²¡æœ‰å­—æ®µ");
         }
     }
 
@@ -321,7 +321,7 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
                         cstmt.registerOutParameter(idColumn, java.sql.Types.BIT);
                     }
                     else {
-                        throw new Exception("Î´ÖªµÄÖ÷¼üÀàĞÍ£º WWW58COM.Common.DAO.SqlCreate.ProcParaCreate");
+                        throw new Exception("æœªçŸ¥çš„ä¸»é”®ç±»å‹ï¼š WWW58COM.Common.DAO.SqlCreate.ProcParaCreate");
                     }
                 }
 
@@ -330,11 +330,11 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
                 }
                 return cstmt;
             } else{
-                throw new Exception("ÊµÌåÃ»ÓĞ¶¨Òå:@ProcedureName");
+                throw new Exception("å®ä½“æ²¡æœ‰å®šä¹‰:@ProcedureName");
             }
         }
         else{
-            throw new Exception("±íÊµÌåÃ»ÓĞ×Ö¶Î£¬»òÓĞÁ½¸öÒÔÉÏµÄID×Ö¶Î");
+            throw new Exception("è¡¨å®ä½“æ²¡æœ‰å­—æ®µï¼Œæˆ–æœ‰ä¸¤ä¸ªä»¥ä¸Šçš„IDå­—æ®µ");
         }
     }
 
@@ -345,10 +345,6 @@ public class ProcCSCreaterWithCache extends PSCreaterBase{
                                             OutSQL sql) throws Exception {
         throw new Exception("not implement");
     }
-
-
-
-
 
     @Override
     public <I> PreparedStatement createDeleteByIDS(Class<?> clazz,

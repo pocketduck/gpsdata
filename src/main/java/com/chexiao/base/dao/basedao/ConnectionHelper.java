@@ -1,11 +1,10 @@
 package com.chexiao.base.dao.basedao;
 
-import java.io.File;
 import java.sql.Connection;
 
-import com.chexiao.base.ConnectionPool.ConnectionPool;
-import com.chexiao.base.ConnectionPool.ConnectionPoolFactory;
-import com.chexiao.base.ConnectionPool.DBConfig;
+import com.chexiao.base.dbconnectionpool.ConnectionPool;
+import com.chexiao.base.dbconnectionpool.ConnectionPoolFactory;
+import com.chexiao.base.dbconnectionpool.DBConfig;
 import com.chexiao.base.dao.util.PropertiesHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,10 +23,11 @@ public class ConnectionHelper {
     public ConnectionHelper(String configPath) throws Exception {
         logger.info("creating DAOHelper configPath:" + configPath);
         PropertiesHelper ph = new PropertiesHelper(configPath);
-        logger.info("init ConnectionPool...");
+        logger.info("init dbconnectionpool...");
+
 
         /**
-         * Ìá¹©Êı¾İ¿âÇĞ»»¹¦ÄÜ
+         * æä¾›æ•°æ®åº“åˆ‡æ¢åŠŸèƒ½
          */
 //		String swapDataSource = ph.getString("swapDataSource");
 //		if(swapDataSource!=null){
@@ -41,15 +41,15 @@ public class ConnectionHelper {
 //		}
 
         connPool = getDataSource(configPath);
-        logger.info("init ConnectionPool success connection count:" + connPool.GetAllCount());
+        logger.info("init dbconnectionpool success connection count:" + connPool.GetAllCount());
         if(connPool.GetAllCount() == 0) {
             logger.warn("success create 0 connection, please check config!!!");
         }
     }
 
     /**
-     * ¸ù¾İUtilityµÄÅäÖÃÎÄ¼ş£¬ºÍÊı¾İ¿âÇĞ»»ÅäÖÃÀ´»ñµÃConnectionPool
-     * @param configPath UtilityµÄÅäÖÃÎÄ¼ş
+     * æ ¹æ®Utilityçš„é…ç½®æ–‡ä»¶ï¼Œå’Œæ•°æ®åº“åˆ‡æ¢é…ç½®æ¥è·å¾—ConnectionPool
+     * @param configPath Utilityçš„é…ç½®æ–‡ä»¶
      * @return
      * @throws Exception
      * @author
@@ -63,7 +63,7 @@ public class ConnectionHelper {
 
 
     /**
-     * »ñÈ¡Á¬½Ó
+     * è·å–è¿æ¥
      * @return
      * @throws Exception
      */
@@ -76,7 +76,7 @@ public class ConnectionHelper {
     }
 
     /**
-     * »ñµÃ¿ÉÄÜÖ»¶ÁµÄÊı¾İ¿âÁ¬½Ó
+     * è·å¾—å¯èƒ½åªè¯»çš„æ•°æ®åº“è¿æ¥
      * @return
      * @throws Exception
      */
@@ -89,7 +89,7 @@ public class ConnectionHelper {
     }
 
     /**
-     * ÊÍ·ÅÁ¬½Ó
+     * é‡Šæ”¾è¿æ¥
      * @param conn
      * @throws Exception
      */
@@ -115,19 +115,19 @@ public class ConnectionHelper {
     }
 
     /**
-     * ´´½¨Á¬½Ó³Ø
+     * åˆ›å»ºè¿æ¥æ± 
      * @throws Exception
      * @throws Exception
      */
     private ConnectionPool createConnPool(PropertiesHelper ph) throws Exception {
-        logger.debug("ConnectionPool ConnetionURL:" + ph.getString("ConnetionURL"));
-        logger.debug("ConnectionPool DriversClass:" + ph.getString("DriversClass"));
-        logger.debug("ConnectionPool UserName:***");
-        logger.debug("ConnectionPool PassWord:***");
-        logger.debug("ConnectionPool MinPoolSize:" + ph.getInt("MinPoolSize"));
-        logger.debug("ConnectionPool MaxPoolSize:" + ph.getInt("MaxPoolSize"));
-        logger.debug("ConnectionPool IdleTimeout:" + ph.getInt("IdleTimeout"));
-        logger.debug("ConnectionPool AutoShrink:" + ph.getBoolean("AutoShrink"));
+        logger.debug("dbconnectionpool ConnetionURL:" + ph.getString("ConnetionURL"));
+        logger.debug("dbconnectionpool DriversClass:" + ph.getString("DriversClass"));
+        logger.debug("dbconnectionpool UserName:***");
+        logger.debug("dbconnectionpool PassWord:***");
+        logger.debug("dbconnectionpool MinPoolSize:" + ph.getInt("MinPoolSize"));
+        logger.debug("dbconnectionpool MaxPoolSize:" + ph.getInt("MaxPoolSize"));
+        logger.debug("dbconnectionpool IdleTimeout:" + ph.getInt("IdleTimeout"));
+        logger.debug("dbconnectionpool AutoShrink:" + ph.getBoolean("AutoShrink"));
 
         DBConfig config = new DBConfig();
         config.setConnetionUrl(ph.getString("ConnetionURL"));

@@ -4,11 +4,11 @@ package com.chexiao.base.dao.monitor;
  * Created by fulei on 2016-12-15.
  */
 public class MonitorParameter {
-    //×î´óÖ´ÐÐÊ±¼ä
+    //æœ€å¤§æ‰§è¡Œæ—¶é—´
     private int maxts = 300;
-    //×î´ó·µ»ØÐÐÊý
+    //æœ€å¤§è¿”å›žè¡Œæ•°
     private int maxrows = 100;
-    //¼à¿ØÊ±¼ä¼ä¸ô
+    //ç›‘æŽ§æ—¶é—´é—´éš”
     private int monitorInterval = 60;
 
 

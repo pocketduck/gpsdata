@@ -36,6 +36,7 @@ public class SqlInfo implements Comparable {
     public String getTableName(){
         return this.tableName;
     }
+
     public void logSqlInfo(int rows, long time,Object... param) {
         totalts.addAndGet(time);
         totalcount.getAndIncrement();
@@ -43,26 +44,26 @@ public class SqlInfo implements Comparable {
         StringBuffer paramStr = new StringBuffer();
         if (time > MonitorParameter.getInstance().getMaxts() || rows > MonitorParameter.getInstance().getMaxrows()) {
             for(Object obj:param){
-                Class clazz =obj.getClass();//µÃµ½ÀàĞÍ¶ÔÓ¦µÄClass¶ÔÏó
-                if(clazz.isArray()){//ÅĞ¶ÏÊÇ·ñÊÇÊı×éÀàĞÍ
+                Class clazz =obj.getClass();//å¾—åˆ°ç±»å‹å¯¹åº”çš„Classå¯¹è±¡
+                if(clazz.isArray()){//åˆ¤æ–­æ˜¯å¦æ˜¯æ•°ç»„ç±»å‹
                     int len= Array.getLength(obj);
                     for(int i=0;i<len;i++){
                         Object o=Array.get(obj,i);
                         paramStr.append(Array.get(obj,i)).append(";");
                     }
                 }
-                else{//²»ÊÇÊı×éÀàĞÍ
+                else{//ä¸æ˜¯æ•°ç»„ç±»å‹
                     paramStr.append(obj).append(";");
+
                 }
+
             }
 //            l.append("tableName",this.tableName).append("sql",this.sql).append("para",paramStr.toString()).append("ts",time+"").append("rows",rows+"");
-
-
-            LOG.warn("±íÃû:" + this.tableName);
+            LOG.warn("è¡¨å:" + this.tableName);
             LOG.warn("SQL:" + this.sql);
-            LOG.warn("²ÎÊı:" + paramStr.toString());
-            LOG.warn("Ö´ĞĞÊ±¼ä:" + time);
-            LOG.warn("·µ»Ø¼ÇÂ¼:" + rows);
+            LOG.warn("å‚æ•°:" + paramStr.toString());
+            LOG.warn("æ‰§è¡Œæ—¶é—´:" + time);
+            LOG.warn("è¿”å›è®°å½•:" + rows);
         }
     }
 

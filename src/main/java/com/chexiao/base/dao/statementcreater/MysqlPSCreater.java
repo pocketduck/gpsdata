@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class MysqlPSCreater extends PSCreaterBase{
 
-
     @Override
     public PreparedStatement createDeleteByCustom(Class<?> clazz,
                                                   Connection conn,
@@ -66,7 +65,7 @@ public class MysqlPSCreater extends PSCreaterBase{
         Class<?> clazz = bean.getClass();
         List<Field> idFields = Common.getIdFields(clazz);
         if (idFields.size() == 0) {
-            throw new Exception("ÎŞ·¨¸ù¾İÊµÌå¸üĞÂ£ºÖ÷¼ü²»´æÔÚ ");
+            throw new Exception("æ— æ³•æ ¹æ®å®ä½“æ›´æ–°ï¼šä¸»é”®ä¸å­˜åœ¨ ");
         }
 
         List<Field> listField = Common.getUpdatableFields(clazz);
@@ -122,7 +121,7 @@ public class MysqlPSCreater extends PSCreaterBase{
             return ps;
 
         } else {
-            throw new Exception("±íÊµÌåÃ»ÓĞ×Ö¶Î");
+            throw new Exception("è¡¨å®ä½“æ²¡æœ‰å­—æ®µ");
         }
     }
 
@@ -135,7 +134,7 @@ public class MysqlPSCreater extends PSCreaterBase{
 
         /**
          * modify by haoxb
-         * Õë¶Ô±í½á¹¹ÏàÍ¬¡¢¿ÉÒÔÍ¨¹ıÒ»¸öÊµÌåÀà¶¯Ì¬ĞŞ¸Ä±íÃû
+         * é’ˆå¯¹è¡¨ç»“æ„ç›¸åŒã€å¯ä»¥é€šè¿‡ä¸€ä¸ªå®ä½“ç±»åŠ¨æ€ä¿®æ”¹è¡¨å
          */
         String tableName = Common.getTableRename(clazz, bean);
         if(null == tableName || "".equals(tableName)){
@@ -218,7 +217,7 @@ public class MysqlPSCreater extends PSCreaterBase{
         String idColumnName = "";
         List<Field> fieldList = Common.getIdFields(clazz);
         if (fieldList.size() != 1) {
-            throw new Exception("ÎŞ·¨¸ù¾İÖ÷¼üID»ñÈ¡Êı¾İ£ºÖ÷¼ü²»´æÔÚ »ò ÓĞÁ½¸öÒÔÉÏµÄÖ÷¼ü");
+            throw new Exception("æ— æ³•æ ¹æ®ä¸»é”®IDè·å–æ•°æ®ï¼šä¸»é”®ä¸å­˜åœ¨ æˆ– æœ‰ä¸¤ä¸ªä»¥ä¸Šçš„ä¸»é”®");
         } else {
             idColumnName = Common.getDBCloumnName(clazz, fieldList.get(0));
         }
@@ -285,7 +284,7 @@ public class MysqlPSCreater extends PSCreaterBase{
         String idColumnName = "";
         List<Field> fieldList = Common.getIdFields(clazz);
         if (fieldList.size() != 1) {
-            throw new Exception("ÎŞ·¨¸ù¾İÖ÷¼üÉ¾³ı£ºÖ÷¼ü²»´æÔÚ »ò ÓĞÁ½¸öÒÔÉÏµÄÖ÷¼ü");
+            throw new Exception("æ— æ³•æ ¹æ®ä¸»é”®åˆ é™¤ï¼šä¸»é”®ä¸å­˜åœ¨ æˆ– æœ‰ä¸¤ä¸ªä»¥ä¸Šçš„ä¸»é”®");
         } else {
             idColumnName = Common.getDBCloumnName(clazz, fieldList.get(0));
         }
@@ -336,7 +335,7 @@ public class MysqlPSCreater extends PSCreaterBase{
 
         List<Field> fieldList = Common.getIdFields(clazz);
         if (fieldList.size() != 1) {
-            throw new Exception("ÎŞ·¨¸ù¾İÖ÷¼üIDÉ¾³ıÊı¾İ£ºÖ÷¼ü²»´æÔÚ »ò ÓĞÁ½¸öÒÔÉÏµÄÖ÷¼ü");
+            throw new Exception("æ— æ³•æ ¹æ®ä¸»é”®IDåˆ é™¤æ•°æ®ï¼šä¸»é”®ä¸å­˜åœ¨ æˆ– æœ‰ä¸¤ä¸ªä»¥ä¸Šçš„ä¸»é”®");
         } else {
             sbSql.append(Common.getDBCloumnName(clazz, fieldList.get(0)));
         }
@@ -370,7 +369,7 @@ public class MysqlPSCreater extends PSCreaterBase{
         String idName = null;
         List<Field> fieldList = Common.getIdFields(clazz);
         if (fieldList.size() != 1) {
-            throw new Exception("ÎŞ·¨¸ù¾İÖ÷¼üIDÉ¾³ıÊı¾İ£ºÖ÷¼ü²»´æÔÚ »ò ÓĞÁ½¸öÒÔÉÏµÄÖ÷¼ü");
+            throw new Exception("æ— æ³•æ ¹æ®ä¸»é”®IDåˆ é™¤æ•°æ®ï¼šä¸»é”®ä¸å­˜åœ¨ æˆ– æœ‰ä¸¤ä¸ªä»¥ä¸Šçš„ä¸»é”®");
         } else {
             idName = Common.getDBCloumnName(clazz, fieldList.get(0));
         }
@@ -388,4 +387,5 @@ public class MysqlPSCreater extends PSCreaterBase{
         Common.setPara(ps, id, 1);
         return ps;
     }
+
 }

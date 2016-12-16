@@ -71,6 +71,7 @@ public class JdbcUitl {
      */
     public static void logCollector(long time ,String sql ,Object... params) {
 
+//        LogCollectorMessage l =new LogCollectorMessage();
         StringBuffer paramStr =new StringBuffer();
         if(time>=200) {
             if (params != null) {
@@ -79,7 +80,11 @@ public class JdbcUitl {
                         paramStr.append(params[i].toString()).append(";");
 
                 }
+//                l.append("runTime", time + "").append("sqlStr", sql).append("params", paramStr.toString());
+//                DJFrameworkLogCollector.writeDjFrameworkLog(l, DjFrameworkAppType.DJDAO);
             } else {
+//                l.append("runTime", time + "").append("sqlStr", sql).append("params", "null");
+//                DJFrameworkLogCollector.writeDjFrameworkLog(l, DjFrameworkAppType.DJDAO);
             }
         }
 

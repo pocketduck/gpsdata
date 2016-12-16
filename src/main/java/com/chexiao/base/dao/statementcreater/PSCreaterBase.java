@@ -17,6 +17,7 @@ import java.util.Set;
 
 public abstract class PSCreaterBase implements IStatementCreater {
 
+
     @Override
     public <I> PreparedStatement createGetByIDS(Class<?> clazz,
                                                 Connection conn,
@@ -28,7 +29,7 @@ public abstract class PSCreaterBase implements IStatementCreater {
 
         List<Field> fieldList = Common.getIdFields(clazz);
         if (fieldList.size() != 1) {
-            throw new Exception("ÎŞ·¨¸ù¾İÖ÷¼üID»ñÈ¡Êı¾İ£ºÖ÷¼ü²»´æÔÚ »ò ÓĞÁ½¸öÒÔÉÏµÄÖ÷¼ü");
+            throw new Exception("æ— æ³•æ ¹æ®ä¸»é”®IDè·å–æ•°æ®ï¼šä¸»é”®ä¸å­˜åœ¨ æˆ– æœ‰ä¸¤ä¸ªä»¥ä¸Šçš„ä¸»é”®");
         } else {
             sbSql.append(Common.getDBCloumnName(clazz, fieldList.get(0)));
         }
@@ -58,7 +59,7 @@ public abstract class PSCreaterBase implements IStatementCreater {
                                                   OutSQL sql) throws Exception {
 
         if(condition == null || condition.size() <=0) {
-            throw new Exception("delete±ØĞë´øÌõ¼ş");
+            throw new Exception("deleteå¿…é¡»å¸¦æ¡ä»¶");
         }
 
         StringBuffer sbSql = new StringBuffer("DELETE FROM ");
@@ -146,7 +147,7 @@ public abstract class PSCreaterBase implements IStatementCreater {
                                              int pageSize,
                                              String orderBy,
                                              OutSQL sql) throws Exception {
-        throw new Exception("¸Ã±¾°æ²»Ö§³Ö");
+        throw new Exception("è¯¥æœ¬ç‰ˆä¸æ”¯æŒ");
     }
 
     @Override
@@ -155,7 +156,7 @@ public abstract class PSCreaterBase implements IStatementCreater {
                                                   Map<String, Object> updateStatement,
                                                   Map<String, Object> condition,
                                                   OutSQL sql) throws Exception {
-        throw new Exception("¸Ã±¾°æ²»Ö§³Ö");
+        throw new Exception("è¯¥æœ¬ç‰ˆä¸æ”¯æŒ");
     }
 
     @Override
@@ -163,6 +164,19 @@ public abstract class PSCreaterBase implements IStatementCreater {
                                             Connection conn,
                                             Map<String, Object> condition,
                                             OutSQL sql) throws Exception {
-        throw new Exception("¸Ã±¾°æ²»Ö§³Ö");
+        throw new Exception("è¯¥æœ¬ç‰ˆä¸æ”¯æŒ");
     }
+    //	private String getNoLock(DBType dbType, OperatorType opType) {
+//		String lock = null;
+//		if(opType == OperatorType.SELECT) {
+//			if(dbType == DBType.SqlServer) {
+//				lock = " WITH(NOLOCK) ";
+//			}
+//		} else if(opType == OperatorType.UPDATE) {
+//			if(dbType == DBType.SqlServer) {
+//				lock = " WITH(ROWLOCK) ";
+//			}
+//		}
+//		return lock;
+//	}
 }

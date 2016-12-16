@@ -59,8 +59,8 @@ public class ClassInfo {
     /**
      * key: field.getName()  value:field
      * add by haoxb
-     * Õë¶Ô±í½á¹¹ÏàÍ¬£¬±íÃû²»Í¬µÄ¸öĞÔ´¦Àí
-     * Õë¶Ô±í½á¹¹ÏàÍ¬£¬±íÃû²»Í¬µÄÇé¿ö£¬Í¨¹ıÏàÍ¬µÄÒ»¸öÊµÌåÀà×öµ½¼æÈİ
+     * é’ˆå¯¹è¡¨ç»“æ„ç›¸åŒï¼Œè¡¨åä¸åŒçš„ä¸ªæ€§å¤„ç†
+     * é’ˆå¯¹è¡¨ç»“æ„ç›¸åŒï¼Œè¡¨åä¸åŒçš„æƒ…å†µï¼Œé€šè¿‡ç›¸åŒçš„ä¸€ä¸ªå®ä½“ç±»åšåˆ°å…¼å®¹
      */
     private Map<String, Field> mapTableRenameField;
     /**
@@ -91,7 +91,7 @@ public class ClassInfo {
         this.setProcdure(getProc(clazz));
         this.setMapIdentityField(getIdentityFields(clazz));
         /**
-         * Õë¶Ô±í½á¹¹ÏàÍ¬£¬±íÃû²»Í¬µÄ¸öĞÔ´¦Àí
+         * é’ˆå¯¹è¡¨ç»“æ„ç›¸åŒï¼Œè¡¨åä¸åŒçš„ä¸ªæ€§å¤„ç†
          * @author haoxb 2013-05-15
          */
         this.setMapTableRenameField(getTableRenameFields(clazz));
@@ -101,7 +101,7 @@ public class ClassInfo {
 
 
     /**
-     * »ñµÃ±íÃû
+     * è·å¾—è¡¨å
      * @param clazz
      * @return
      */
@@ -122,7 +122,7 @@ public class ClassInfo {
     }
 
     /**
-     * »ñµÃËùÓĞÔÊĞí²åÈëµÄ×Ö¶Î
+     * è·å¾—æ‰€æœ‰å…è®¸æ’å…¥çš„å­—æ®µ
      * @param bean
      * @return
      */
@@ -153,7 +153,7 @@ public class ClassInfo {
     }
 
     /**
-     * »ñµÃDBËùÓĞ×Ö¶Î
+     * è·å¾—DBæ‰€æœ‰å­—æ®µ
      * @param bean
      * @return
      */
@@ -171,7 +171,7 @@ public class ClassInfo {
     }
 
     /**
-     * »ñµÃÖ÷¼ü×Ö¶Î
+     * è·å¾—ä¸»é”®å­—æ®µ
      * @param clazz
      * @return
      */
@@ -187,7 +187,7 @@ public class ClassInfo {
     }
 
     /**
-     * »ñµÃËùÓĞÔÊĞí¸üĞÂµÄ×Ö¶Î
+     * è·å¾—æ‰€æœ‰å…è®¸æ›´æ–°çš„å­—æ®µ
      * @param clazz
      * @return
      */
@@ -218,7 +218,7 @@ public class ClassInfo {
     }
 
     /**
-     * »ñµÃ×Ö¶ÎÃû
+     * è·å¾—å­—æ®µå
      * @param fList
      * @return
      */
@@ -244,7 +244,7 @@ public class ClassInfo {
 
 
     /*
-     * »ñµÃ×Ö¶Î¶ÔÓ¦µÄset·½·¨
+     * è·å¾—å­—æ®µå¯¹åº”çš„setæ–¹æ³•
      */
     private Map<String, Method> getSetterMethod(Class<?> clazz) throws Exception {
         Map<String, Method> mapMethod = new HashMap<String, Method>();
@@ -300,7 +300,7 @@ public class ClassInfo {
     }
 
     /*
-     * »ñµÃ×Ö¶Î¶ÔÓ¦µÄget·½·¨
+     * è·å¾—å­—æ®µå¯¹åº”çš„getæ–¹æ³•
      */
     private Map<String, Method> getGetterMethod(Class<?> clazz) throws Exception {
         Map<String, Method> mapMethod = new HashMap<String, Method>();
@@ -357,7 +357,7 @@ public class ClassInfo {
     }
 
     /*
-     * »ñµÃ×ÔÔö×Ö¶Î
+     * è·å¾—è‡ªå¢å­—æ®µ
      */
     private Map<String, Field> getIdentityFields(Class<?> clazz) {
         Map<String, Field> mapField = new HashMap<String, Field>();
@@ -374,7 +374,7 @@ public class ClassInfo {
     }
 
     /**
-     * »ñµÃÖØÃüÃû±íÃû
+     * è·å¾—é‡å‘½åè¡¨å
      * @param clazz
      * @return
      */
@@ -391,7 +391,7 @@ public class ClassInfo {
 
 
     /**
-     * »ñµÃTableRename×Ö¶Î¶ÔÓ¦µÄset·½·¨
+     * è·å¾—TableRenameå­—æ®µå¯¹åº”çš„setæ–¹æ³•
      * @author haoxb 2013-05-15
      */
     private Map<String, Method> getTableRenameSetterMethod(Class<?> clazz) throws Exception {
@@ -448,7 +448,7 @@ public class ClassInfo {
     }
 
     /**
-     * »ñµÃTableRename×Ö¶Î¶ÔÓ¦µÄget·½·¨
+     * è·å¾—TableRenameå­—æ®µå¯¹åº”çš„getæ–¹æ³•
      * @author haoxb 2013-05-15
      */
     private Map<String, Method> getTableRenameGetterMethod(Class<?> clazz) throws Exception {
