@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<configuration>
+<quartz poolsize="1"></quartz>
+<property> 
+<name>vm.xms</name> 
+<value>256m</value>
+</property> 
+<property> 
+<name>vm.xmx</name> 
+<value>256m</value>
+</property> 
+<property> 
+<name>vm.xmn</name> 
+<value>128m</value>
+</property>
+</configuration>
