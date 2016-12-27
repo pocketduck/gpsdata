@@ -3,9 +3,8 @@ package com.chexiao.gpsdata.server;
 import com.bj58.daojia.app.engine.context.AppContext;
 import com.bj58.daojia.app.engine.task.AppTask;
 import com.chexiao.base.util.PropertyUtil;
-import com.chexiao.gpsdata.codec.PositionNormalDecoder;
+import com.chexiao.gpsdata.codec.MessageDecoder;
 import com.chexiao.gpsdata.handler.PositionNormalHandler;
-import com.chexiao.gpsdata.server.heartbeat.HeartBeatServerHandler;
 import com.chexiao.gpsdata.server.heartbeat.HeartbeatHandlerInitializer;
 import com.chexiao.gpsdata.service.StudentSerivce;
 import io.netty.bootstrap.ServerBootstrap;
@@ -13,13 +12,11 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by fulei on 2016-12-17.
@@ -73,7 +70,7 @@ public class NettyServer implements AppTask {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast("decoder",
-                                    new PositionNormalDecoder(MAX_FRAME_LENGTH,
+                                    new MessageDecoder(MAX_FRAME_LENGTH,
                                             LENGTH_FIELD_OFFSET, LENGTH_FIELD_LENGTH,
                                             LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP));
 //                            ch.pipeline().addLast("encoder", new ProtocolEncoder());
