@@ -4,9 +4,8 @@ import com.bj58.daojia.app.engine.context.AppContext;
 import com.bj58.daojia.app.engine.task.AppTask;
 import com.chexiao.base.util.PropertyUtil;
 import com.chexiao.gpsdata.codec.MessageDecoder;
-import com.chexiao.gpsdata.handler.PositionNormalHandler;
+import com.chexiao.gpsdata.handler.PositionHandler;
 import com.chexiao.gpsdata.server.heartbeat.HeartbeatHandlerInitializer;
-import com.chexiao.gpsdata.service.StudentSerivce;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -25,7 +24,6 @@ public class NettyServer implements AppTask {
 
 //    private static final Logger logger = Logger.getLogger(NettyServer.class);
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(NettyServer.class);
-    StudentSerivce studentSerivce= new StudentSerivce();
 
     private static final int BUFSIZE = 256; // Buffer size (bytes)
     private static final int TIMEOUT = 3000; // Wait timeout (milliseconds)
@@ -74,7 +72,7 @@ public class NettyServer implements AppTask {
                                             LENGTH_FIELD_OFFSET, LENGTH_FIELD_LENGTH,
                                             LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP));
 //                            ch.pipeline().addLast("encoder", new ProtocolEncoder());
-                            ch.pipeline().addLast(new PositionNormalHandler());
+                            ch.pipeline().addLast(new PositionHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
